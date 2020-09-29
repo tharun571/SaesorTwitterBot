@@ -10,6 +10,8 @@ auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
 
+arr = np.array([[0,0,0,0]])
+
 #a and b are used to make sure the already predicted tweets are not replied again
 
 
@@ -27,9 +29,12 @@ def likes_predictor(tweetid,userid):
     d = status.created_at
     age = time.time() - (d - datetime.datetime(1970,1,1)).total_seconds()
 
-    no_of_likes = np.append(no_of_likes , status.favorite_count)
-    seconds_since_posted = np.append(seconds_since_posted,age)
-    no_of_followers = np.append(no_of_followers,user.followers_count)
+    global arr
+    arr = np.append(arr,[[tweetid,status.favorite_count,age,user.followers_count]],axis=0)
+    
+    # no_of_likes = np.append(no_of_likes , status.favorite_count)
+    # seconds_since_posted = np.append(seconds_since_posted,age)
+    # no_of_followers = np.append(no_of_followers,user.followers_count)
     #print(no_of_likes)
     #print(no_of_followers)
     # print(seconds_since_posted)
@@ -54,3 +59,5 @@ def reply_to_tweets(a):
 #     time.sleep(15)
 
 reply_to_tweets(0)
+np.savetxt('data.csv', arr,header="Tweet ID, Likes, Seconds, Followers", delimiter=',')
+print(arr)
