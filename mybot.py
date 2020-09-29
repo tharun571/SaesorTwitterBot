@@ -60,4 +60,3 @@ def reply_to_tweets(a):
 
 reply_to_tweets(0)
 np.savetxt('data.csv', arr,header="Tweet ID, Likes, Seconds, Followers", delimiter=',')
-print(arr)
