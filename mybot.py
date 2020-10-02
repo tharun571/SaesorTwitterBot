@@ -1,5 +1,7 @@
 import tweepy, time, datetime
 import numpy as np
+import pandas as pd
+import csv
 
 CONSUMER_KEY = 'mqT85KoatMgF27uILbYGSpV2i'
 CONSUMER_SECRET = 'YKiBx5HNXjdg2dpfeShAQ69wncYlKhqtyjT6v7VtlXFbj3kZkr'
@@ -10,7 +12,8 @@ auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
 
-arr = np.array([[0,0,0,0]])
+arr = np.array([[0,0,0,0]],dtype=object)
+arr1 = np.array([["0","0","0","0"]])
 
 #a and b are used to make sure the already predicted tweets are not replied again
 
@@ -29,8 +32,9 @@ def likes_predictor(tweetid,userid):
     d = status.created_at
     age = time.time() - (d - datetime.datetime(1970,1,1)).total_seconds()
 
-    global arr
-    arr = np.append(arr,[[tweetid,status.favorite_count,age,user.followers_count]],axis=0)
+    global arr,arr1
+    #arr = np.append(arr,[[tweetid,status.favorite_count,age,user.followers_count]],axis=0)
+    arr1=np.append(arr1,[[str(tweetid),str(status.favorite_count),str(age),str(user.followers_count)]],axis=0)
     
     # no_of_likes = np.append(no_of_likes , status.favorite_count)
     # seconds_since_posted = np.append(seconds_since_posted,age)
@@ -39,24 +43,41 @@ def likes_predictor(tweetid,userid):
     #print(no_of_followers)
     # print(seconds_since_posted)
 
-def reply_to_tweets(a):
-    b=1
+def reply_to_tweets():
+    
     #getting the info of the tagged tweet
     mentions = api.mentions_timeline()
     for mention in reversed(mentions):
-        if b>a:
-            a+=1
-            #getting the tweet id and user id of the original tweet
-            tweetid=mention.in_reply_to_status_id
-            userid=mention.in_reply_to_user_id
+        #getting the tweet id and user id of the original tweet
+        tweetid=mention.in_reply_to_status_id
+        userid=mention.in_reply_to_user_id
+        global list3
+        if str(tweetid) not in list3:
             likes_predictor(tweetid,userid)
             #api.update_status('@' + mention.user.screen_name +
             #            'Hi', mention.id)
-        b+=1 
+        
 
-# while True:
-#     reply_to_tweets()
-#     time.sleep(15)
+while True:
+    list2 = []
+    with open("test1.csv") as f:
+        list2 = [row.split()[0] for row in f if row != ""] 
+    list3 = []
+    list3 = [list1.split(",")[0] for list1 in list2]
+    
+    reply_to_tweets()
+    
+    np.savetxt('test1.csv', arr1, fmt='%s', delimiter=',')
+    # reader = csv.reader(open("test.csv"))
+    # reader1 = csv.reader(open("test2.csv"))
+    # f = open("test1.csv", "w")
+    # writer = csv.writer(f)
 
-reply_to_tweets(0)
-np.savetxt('data.csv', arr,header="Tweet ID, Likes, Seconds, Followers", delimiter=',')
+    # for row in reader:
+    #     writer.writerow(row)
+    # for row in reader1:
+    #     writer.writerow(row)
+    # f.close()
+
+    # arr1 = np.array([["0","0","0","0"]])
+    time.sleep(15)
