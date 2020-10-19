@@ -1,4 +1,4 @@
 # SaesorTwitterBot
-Copy the code from decision_tree.py 
-Comment out train_model() in line 20 after running it for the first time
-Use predict_model(followers) to predict the likes in 3000 seconds i.e 50 minutes
+An automated Twitter Bot which
+when tagged in a comment section of any tweet,
+will predict the number of likes that tweet will get
