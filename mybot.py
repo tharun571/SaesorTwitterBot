@@ -2,12 +2,6 @@
 # import numpy as np
 # import pandas as pd
 # import csv
-
-# CONSUMER_KEY = 'mqT85KoatMgF27uILbYGSpV2i'
-# CONSUMER_SECRET = 'YKiBx5HNXjdg2dpfeShAQ69wncYlKhqtyjT6v7VtlXFbj3kZkr'
-# ACCESS_KEY = '1307561819410636801-Wf0oCrMu1HkZayyKnbyYAlBkiX7MUb'
-# ACCESS_SECRET = '1VogIcIiTqbH6LclCVD04sh7jO09CJQdIoo9JY3AoN1FT'
-
 # auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 # auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 # api = tweepy.API(auth)
