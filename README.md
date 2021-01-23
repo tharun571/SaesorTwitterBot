@@ -14,6 +14,5 @@ will predict the number of likes that tweet will get.
 ## How it works ?
 When you mention this bot name [@Saesorbot] in any of the tweet.It will predict the likes that tweet will get in next 50 minutes.
 
-# For Example
-
-  !(Example)[working.png]
+### For Example
+  ![Example](working.png)
