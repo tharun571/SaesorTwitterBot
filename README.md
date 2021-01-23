@@ -16,3 +16,8 @@ When you mention this bot name [@Saesorbot] in any of the tweet.It will predict 
 
 ### For Example
   - ![Example](working.png)
+
+## Need to automate ?
+Then deploy it to heroku.
+  - Point this branch in heroku.(All the files needed for heroku is present just needed an deploy!)
+  - Then activate the dynos.So that your app can run.
