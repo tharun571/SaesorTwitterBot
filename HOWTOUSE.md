@@ -1,1 +1,3 @@
-Copy the code from decision_tree.py Comment out train_model() in line 20 after running it for the first time Use predict_model(followers) to predict the likes in 3000 seconds i.e 50 minutes
+Get the credientials from the twitter developer account and update in the config.py file.
+Just run the app.py program.
+
